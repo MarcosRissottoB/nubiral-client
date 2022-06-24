@@ -2,12 +2,20 @@ name: 'Figma'
 
 on:
   push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
 
 jobs:
-  figma-getVariables:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world!
+
       - name: Get variables from Figma
         run: npm run figma
 
