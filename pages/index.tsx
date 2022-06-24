@@ -8,7 +8,7 @@ const Home: NextPage = () => {
   const [valuesData, setValuesData] = useState<[]>([]);
   const [token, setToken] = useState('');
 
-  console.log('test github actions');
+  console.log('test github actions4343');
   
   const getHost = async (token: string) => {
     const response = await getHostApi(token); 
