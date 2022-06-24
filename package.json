@@ -6,7 +6,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "figma": "node figma.js"
+    "figma": "node ./figma.js"
   },
   "dependencies": {
     "axios": "^0.24.0",
