@@ -2,7 +2,6 @@ name: 'Figma'
 
 on:
   push:
-    branches: [main]
 
 jobs:
   figma-getVariables:
