@@ -9,6 +9,7 @@ const Home: NextPage = () => {
   const [token, setToken] = useState('');
 
   console.log('test github actions');
+
   
   const getHost = async (token: string) => {
     const response = await getHostApi(token); 
