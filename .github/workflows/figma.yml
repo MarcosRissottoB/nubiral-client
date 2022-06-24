@@ -1,0 +1,14 @@
+name: 'Figma'
+
+on: pull
+
+jobs:
+  figma-getVariables:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Get variables from Figma
+        run: figma
+
+        with:
+          token: ${{ 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 }}
