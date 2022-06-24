@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { registerApi } from '../../../pages/api/user';
 import { useState, useEffect } from 'react';
+import MessageAlert from '../../MessageAlert/MessageAlert';
 
 interface Props {
   showLoginForm: React.MouseEventHandler<HTMLButtonElement>;
@@ -15,14 +16,17 @@ type User = {
 }
 export default function RegisterForm({showLoginForm}: Props) {
   const [user, setUser] = useState<User | null>(null)
-  const [loading, setloading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
 
   const makeRegister = async (formData: object) => {
-    setloading(true);
+    setLoading(true);
     const userData = await registerApi(formData);
+    if( userData.message) setMessage(userData.message);
+    console.log('userData', userData);
     localStorage.setItem('userData', userData);
     setUser(userData);
-    setloading(false);
+    setLoading(false);
   }
   
   useEffect(() => {
@@ -76,6 +80,7 @@ export default function RegisterForm({showLoginForm}: Props) {
               <Button onClick={showLoginForm}>Iniciar sesión</Button>
               <Button type="submit" loading={loading}>Registrar</Button>
             </div>
+            {message && <MessageAlert message={message}/>}
           </Form>
         </div>
       }

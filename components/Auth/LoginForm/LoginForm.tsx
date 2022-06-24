@@ -1,9 +1,10 @@
-import { Form, Button} from 'semantic-ui-react';
+import { Form, Button,} from 'semantic-ui-react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { loginApi } from '../../../pages/api/user';
 import { useState, useEffect } from 'react';
 import useAuth from '../../../hooks/useAuth';
+import MessageAlert from '../../MessageAlert/MessageAlert';
 
 interface Props {
   showLoginForm: React.MouseEventHandler<HTMLButtonElement>;
@@ -17,15 +18,19 @@ type User = {
 
 export default function LoginForm({showLoginForm}: Props) {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setloading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
   const { login } = useAuth();
 
   const makeLogin = async (formData: object) => {
-    setloading(true);
-    const {user, token} = await loginApi(formData);
-    login(token)
+    setLoading(true);
+    // const {user, token} = await loginApi(formData);
+    const response: any = await loginApi(formData);
+    console.log('login response', response.message);
+    setMessage(response.message);
+    // login(token)
     setUser(user);
-    setloading(false);
+    setLoading(false);
   }
   
   useEffect(() => {}, [user]);
@@ -36,7 +41,12 @@ export default function LoginForm({showLoginForm}: Props) {
       email: Yup.string().email().required(),
       password: Yup.string().required(),
     }),
-    onSubmit: async (formData) => makeLogin(formData)
+    onSubmit: async (formData) => {
+      setLoading(true);
+      const response = await makeLogin(formData);
+      console.log('login onSubmit response', response);
+      setLoading(false);
+    }
   })
 
   return (
@@ -69,6 +79,7 @@ export default function LoginForm({showLoginForm}: Props) {
               <Button onClick={showLoginForm}>Registrar</Button>
               <Button type="submit" loading={loading}>Iniciar sesión</Button>
             </div>
+            {message && <MessageAlert message={message}/>}
           </Form>
         </div>
       }
