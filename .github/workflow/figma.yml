@@ -11,4 +11,4 @@ jobs:
         run: figma
 
         with:
-          token: ${{ process.env.GITHUB_TOKEN }}
+          token: ${{ process.env.GITHUB_ACCESSTOKEN }}
