@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Get variables from Figma
-        run: figma
+        run: npm run figma
 
         with:
           token: ${{ process.env.GITHUB_ACCESSTOKEN }}
